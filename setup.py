@@ -6,7 +6,7 @@ import setuptools
 
 setuptools.setup(
     name = 'attributedict',
-    version = '0.1.2',
+    version = '0.1.3',
     description = (
         'A dictionary object with attributes support.'
     ),
