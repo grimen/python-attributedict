@@ -1,5 +1,5 @@
 
-# `AttributeDict`
+# `AttributeDict` [![Build Status](https://travis-ci.com/grimen/python-attributedict.svg?branch=master)](https://travis-ci.com/grimen/python-attributedict)
 
 *A dictionary object with attributes support.*
 
