@@ -1,6 +1,4 @@
 
-CLEAR_PATTERNS := '*.pyc __pycache__'
-
 all: test
 
 .PHONY: clean
