@@ -24,7 +24,7 @@ setuptools.setup(
         'props',
         'openstruct',
         'struct',
-        'hash',
+        'hashmap',
     ],
     author = 'Jonas Grimfelt',
     author_email = 'grimen@gmail.com',
