@@ -5,8 +5,8 @@ all: test
 clean:
 	CLEAR_PATTERNS='*.pyc __pycache__ build dist *.egg-info'; \
 	for PATTERN in $$CLEAR_PATTERNS; do \
-		echo "find $$PWD -name $$PATTERN -delete"; \
-		find $$PWD -name $$PATTERN -delete; \
+		echo "rm -rf \$$(find $$PWD -name $$PATTERN)"; \
+		rm -rf $$(find $$PWD -name $$PATTERN); \
 	done
 
 .PHONY: install
