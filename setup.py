@@ -1,11 +1,12 @@
 
 import setuptools
 
-from attributedict import __version__
+# DISABLED/BUG: this line fails when `pip install attributedict` but works `pip install .`
+# from attributedict import __version__
 
 setuptools.setup(
     name = 'attributedict',
-    version = __version__,
+    version = '0.1.1',
     description = (
         'A dictionary object with attributes support.'
     ),
