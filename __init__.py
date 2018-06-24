@@ -1,0 +1,2 @@
+
+import attributedict as default

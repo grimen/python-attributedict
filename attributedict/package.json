@@ -1,0 +1,21 @@
+{
+    "name": "attributedict",
+    "version": "0.1.0",
+    "description": "A dictionary object with attributes support.",
+    "keywords": [],
+    "author": "Jonas Grimfelt <grimen@gmail.com>",
+    "homepage": "https://github.com/grimen/python-attributedict#README",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/grimen/python-attributedict.git"
+    },
+    "bugs": {
+        "url": "https://github.com/grimen/python-attributedict/issues"
+    },
+    "license": "MIT",
+    "exclude": [],
+    "directories": {
+        "lib": "attributedict",
+        "test": "attributedict/tests"
+    }
+}
