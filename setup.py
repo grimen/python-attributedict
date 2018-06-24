@@ -6,7 +6,7 @@ import setuptools
 
 setuptools.setup(
     name = 'attributedict',
-    version = '0.1.3',
+    version = '0.1.4',
     description = (
         'A dictionary object with attributes support.'
     ),
@@ -30,15 +30,23 @@ setuptools.setup(
     author = 'Jonas Grimfelt',
     author_email = 'grimen@gmail.com',
     url = 'https://github.com/grimen/python-attributedict',
+    download_url = 'https://github.com/grimen/python-attributedict',
     project_urls = {
         'repository': 'https://github.com/grimen/python-attributedict',
         'bugs': 'https://github.com/grimen/python-attributedict/issues',
+    },
+    packages = setuptools.find_packages(),
+    package_dir = {
+        'attributedict': 'attributedict'
     },
     package_data = {
         '': [
             'MIT-LICENSE',
             'README.md',
         ],
+        'attributedict': [
+            '*.*',
+        ]
     },
     py_modules = ['attributedict'],
     license = 'MIT',
@@ -50,11 +58,8 @@ setuptools.setup(
         'Operating System :: POSIX',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',

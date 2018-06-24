@@ -10,15 +10,15 @@ clean:
 	done
 
 .PHONY: install
-install:
+install: clean
 	pip install -r requirements.txt
 
 .PHONY: test
-test:
+test: clean
 	python ./attributedict/tests/
 
 .PHONY: build
-build:
+build: clean
 	rm -rf ./dist && \
 	python -m pip install --user --upgrade setuptools wheel && \
 	python setup.py sdist bdist_wheel
