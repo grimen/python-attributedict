@@ -13,7 +13,7 @@ $ pip install attributedict
 ```
 
 
-## Usage
+## Use
 
 Example:
 
