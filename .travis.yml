@@ -7,3 +7,5 @@ before_install:
     - sudo apt-get install -y realpath
     - pip install -U setuptools
 script: make test
+notifications:
+    email: false
