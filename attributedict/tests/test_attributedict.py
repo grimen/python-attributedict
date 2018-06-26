@@ -60,7 +60,7 @@ class TestCase(helper.TestCase):
         self.assertDeepEqual(attr_dict, {})
         self.assertDeepEqual(attr_dict.__dict__, {})
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertTrue(isinstance(attr_dict, dict))
         self.assertTrue(isinstance(attr_dict, attributedict.collections.AttributeDict))
@@ -68,7 +68,7 @@ class TestCase(helper.TestCase):
         self.assertDeepEqual(attr_dict, {'foo': None})
         self.assertDeepEqual(attr_dict.__dict__, {'foo': None})
 
-        attr_dict = AttributeDict({'foo': {}})
+        attr_dict = AttributeDict({'foo': {}, '__reserved__': True})
 
         self.assertTrue(isinstance(attr_dict, dict))
         self.assertTrue(isinstance(attr_dict, attributedict.collections.AttributeDict))
@@ -76,7 +76,7 @@ class TestCase(helper.TestCase):
         self.assertDeepEqual(attr_dict, {'foo': {}})
         self.assertDeepEqual(attr_dict.__dict__, {'foo': AttributeDict({})})
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertTrue(isinstance(attr_dict, dict))
         self.assertTrue(isinstance(attr_dict, attributedict.collections.AttributeDict))
@@ -107,7 +107,7 @@ class TestCase(helper.TestCase):
         self.assertDeepEqual(attr_dict, {})
         self.assertDeepEqual(attr_dict.__dict__, {})
 
-        attr_dict.update({'foo': None})
+        attr_dict.update({'foo': None, '__reserved__': True})
 
         self.assertTrue(isinstance(attr_dict, dict))
         self.assertTrue(isinstance(attr_dict, attributedict.collections.AttributeDict))
@@ -115,7 +115,7 @@ class TestCase(helper.TestCase):
         self.assertDeepEqual(attr_dict, {'foo': None})
         self.assertDeepEqual(attr_dict.__dict__, {'foo': None})
 
-        attr_dict.update({'foo': {}})
+        attr_dict.update({'foo': {}, '__reserved__': True})
 
         self.assertTrue(isinstance(attr_dict, dict))
         self.assertTrue(isinstance(attr_dict, attributedict.collections.AttributeDict))
@@ -123,7 +123,7 @@ class TestCase(helper.TestCase):
         self.assertDeepEqual(attr_dict, {'foo': {}})
         self.assertDeepEqual(attr_dict.__dict__, {'foo': AttributeDict({})}, exclude_types = {dict, attributedict.collections.AttributeDict})
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertTrue(isinstance(attr_dict, dict))
         self.assertTrue(isinstance(attr_dict, attributedict.collections.AttributeDict))
@@ -150,19 +150,19 @@ class TestCase(helper.TestCase):
 
         # {'foo': NONE}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(list(attr_dict.keys()), ['foo'])
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(list(attr_dict.keys()), ['foo'])
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(list(attr_dict.keys()), ['foo', 'baz'])
 
@@ -185,19 +185,19 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(list(attr_dict.values()), [None])
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(list(attr_dict.values()), [{'bar': [1, 2, 3]}])
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(list(attr_dict.values()), [{'bar': [1, 2, 3]}, True])
 
@@ -223,21 +223,21 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.get('foo', 'default'), None)
         self.assertDeepEqual(attr_dict.get('baz', 'default'), 'default')
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.get('foo', 'default'), {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict.get('baz', 'default'), 'default')
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.get('foo', 'default'), {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict.get('baz', 'default'), True)
@@ -264,21 +264,21 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.pop('foo', 'default'), None)
         self.assertDeepEqual(attr_dict.pop('baz', 'default'), 'default')
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.pop('foo', 'default'), {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict.pop('baz', 'default'), 'default')
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.pop('foo', 'default'), {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict.pop('baz', 'default'), True)
@@ -311,7 +311,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.setdefault('foo', 'default'), None)
         self.assertDeepEqual(attr_dict.get('foo'), None)
@@ -320,7 +320,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.setdefault('foo', 'default'), {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict.get('foo'), {'bar': [1, 2, 3]})
@@ -329,7 +329,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.setdefault('foo', 'default'), {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict.get('foo'), {'bar': [1, 2, 3]})
@@ -356,19 +356,19 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.copy(), {'foo': None})
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.copy(), {'foo': {'bar': [1, 2, 3]}})
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.copy(), {'foo': {'bar': [1, 2, 3]}, 'baz': True})
 
@@ -412,7 +412,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict['foo'], None)
 
@@ -424,7 +424,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict['foo'], {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict['foo']['bar'], [1, 2, 3])
@@ -434,7 +434,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict['foo'], {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict['foo']['bar'], [1, 2, 3])
@@ -501,7 +501,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict['foo'], None)
 
@@ -517,7 +517,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict['foo'], {'bar': [1, 2, 3]})
 
@@ -533,7 +533,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict['foo'], {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict['baz'], True)
@@ -615,7 +615,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         del attr_dict['foo']
 
@@ -636,7 +636,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         del attr_dict['foo']
 
@@ -657,7 +657,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         del attr_dict['foo']
 
@@ -715,7 +715,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.foo, None)
 
@@ -727,7 +727,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.foo, {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict.foo.bar, [1, 2, 3])
@@ -737,7 +737,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict.foo, {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict.foo.bar, [1, 2, 3])
@@ -804,7 +804,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict['foo'], None)
 
@@ -820,7 +820,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict['foo'], {'bar': [1, 2, 3]})
 
@@ -836,7 +836,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertDeepEqual(attr_dict['foo'], {'bar': [1, 2, 3]})
         self.assertDeepEqual(attr_dict['baz'], True)
@@ -918,7 +918,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': None}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         del attr_dict.foo
 
@@ -939,7 +939,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         del attr_dict.foo
 
@@ -960,7 +960,7 @@ class TestCase(helper.TestCase):
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         del attr_dict.foo
 
@@ -997,19 +997,19 @@ class TestCase(helper.TestCase):
 
         # {'foo': NONE}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertEqual(str(attr_dict), "{'foo': None}")
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertEqual(str(attr_dict), "{'foo': {'bar': [1, 2, 3]}}")
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertEqual(str(attr_dict), "{'foo': {'bar': [1, 2, 3]}, 'baz': True}")
 
@@ -1032,19 +1032,19 @@ class TestCase(helper.TestCase):
 
         # {'foo': NONE}
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertEqual(repr(attr_dict), "{'foo': None}")
 
         # {'foo': {'bar': [1, 2, 3]}}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertEqual(repr(attr_dict), "{'foo': {'bar': [1, 2, 3]}}")
 
         # {'foo': {'bar': [1, 2, 3]}, 'baz': True}
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, 'baz': True, '__reserved__': True})
 
         self.assertEqual(repr(attr_dict), "{'foo': {'bar': [1, 2, 3]}, 'baz': True}")
 
@@ -1070,17 +1070,17 @@ class TestCase(helper.TestCase):
         self.assertDeepEqual(helper.json_encode(attr_dict), '{}')
         # self.assertDeepEqual(helper.json_encode(attr_dict.__dict__), '{}')
 
-        attr_dict = AttributeDict({'foo': None})
+        attr_dict = AttributeDict({'foo': None, '__reserved__': True})
 
         self.assertDeepEqual(helper.json_encode(attr_dict), '{"foo":null}')
         # self.assertDeepEqual(helper.json_encode(attr_dict.__dict__), '{"foo":null}')
 
-        attr_dict = AttributeDict({'foo': {}})
+        attr_dict = AttributeDict({'foo': {}, '__reserved__': True})
 
         self.assertDeepEqual(helper.json_encode(attr_dict), '{"foo":{}}')
         # self.assertDeepEqual(helper.json_encode(attr_dict.__dict__), '{"foo":{}}')
 
-        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}})
+        attr_dict = AttributeDict({'foo': {'bar': [1, 2, 3]}, '__reserved__': True})
 
         self.assertDeepEqual(helper.json_encode(attr_dict), '{"foo":{"bar":[1,2,3]}}')
         # self.assertDeepEqual(helper.json_encode(attr_dict.__dict__), '{"foo":{"bar":[1,2,3]}}')
@@ -1098,7 +1098,7 @@ class TestCase(helper.TestCase):
         self.assertDeepEqual(helper.json_encode(attr_dict), '{"foo":{}}')
         self.assertDeepEqual(helper.json_encode(attr_dict.__dict__), '{"foo":{}}')
 
-        attr_dict['foo'] = {'bar': [1, 2, 3]}
+        attr_dict['foo'] = {'bar': [1, 2, 3], '__reserved__': True}
 
         self.assertDeepEqual(helper.json_encode(attr_dict), '{"foo":{"bar":[1,2,3]}}')
         self.assertDeepEqual(helper.json_encode(attr_dict.__dict__), '{"foo":{"bar":[1,2,3]}}')
@@ -1131,7 +1131,7 @@ class TestCase(helper.TestCase):
         self.assertDeepEqual(helper.json_encode(attr_dict), '{"foo":{}}')
         self.assertDeepEqual(helper.json_encode(attr_dict.__dict__), '{"foo":{}}')
 
-        attr_dict.foo = {'bar': [1, 2, 3]}
+        attr_dict.foo = {'bar': [1, 2, 3], '__reserved__': True}
 
         self.assertDeepEqual(helper.json_encode(attr_dict), '{"foo":{"bar":[1,2,3]}}')
         self.assertDeepEqual(helper.json_encode(attr_dict.__dict__), '{"foo":{"bar":[1,2,3]}}')

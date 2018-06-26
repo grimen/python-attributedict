@@ -13,6 +13,14 @@ import attributedict.compat as compat
 
 
 # =========================================
+#       CONSTANTS
+# --------------------------------------
+
+DEFAULT_RESERVED_KEY_PREFIX = '__'
+DEFAULT_RESERVED_KEY_SUFFIX = '__'
+
+
+# =========================================
 #       CLASSES
 # --------------------------------------
 
@@ -45,8 +53,8 @@ class AttributeDict(dict):
 
     def __init__(self, entries = {}):
         entries = entries or {}
+        entries = self._reject_reserved_keys(entries)
 
-        # dict.__init__(self, entries)
         super(AttributeDict, self).__init__(entries)
 
         self.update(entries)
@@ -64,6 +72,23 @@ class AttributeDict(dict):
         # print('_refresh')
         dict.__init__(self, self.__dict__)
 
+    def _reject_reserved_keys(self, object = {}):
+        # NOTE:
+        # tricky to override on the instance, because only special attribute `self__dict__` is not causing
+        # recursive calls to `self.__getattr__`. =S
+        reserved_key_prefix = DEFAULT_RESERVED_KEY_PREFIX
+        reserved_key_suffix = DEFAULT_RESERVED_KEY_SUFFIX
+
+        if isinstance(object, dict) and isinstance(reserved_key_prefix, compat.string_types):
+            for key, value in object.items():
+
+                if key.startswith(reserved_key_prefix) and key.endswith(reserved_key_suffix):
+                    del object[key]
+                else:
+                    object[key] = self._reject_reserved_keys(object[key])
+
+        return object
+
     def update(self, entries = {}, *args, **kwargs):
         """
         Update dictionary.
@@ -73,6 +98,9 @@ class AttributeDict(dict):
             object.update({'foo': {'bar': 1}})
 
         """
+        if isinstance(entries, dict):
+            entries = self._reject_reserved_keys(entries)
+
         for key, value in dict(entries, *args, **kwargs).items():
             if isinstance(value, dict):
                 self.__dict__[key] = AttributeDict(value)
@@ -129,6 +157,9 @@ class AttributeDict(dict):
 
             value = object['key']
 
+            # ignored
+            object['__key__']
+
         """
         result = self.__dict__.__getitem__(key)
 
@@ -143,6 +174,9 @@ class AttributeDict(dict):
         @example:
 
             object['key'] = value
+
+            # ignored
+            object['__key__'] = value
 
         """
         if isinstance(value, dict):
@@ -162,6 +196,9 @@ class AttributeDict(dict):
 
             del object['key']
 
+            # ignored
+            del object['__key__']
+
         """
         result = self.__dict__.__delitem__(key)
 
@@ -176,6 +213,9 @@ class AttributeDict(dict):
         @example:
 
             value = object.key
+
+            # ignored
+            object.__key__
 
         """
         try:
@@ -192,6 +232,9 @@ class AttributeDict(dict):
 
             object.key = value
 
+            # ignored
+            object.__key__ = value
+
         """
         try:
             return self.__setitem__(key, value)
@@ -206,6 +249,9 @@ class AttributeDict(dict):
         @example:
 
             del object.key
+
+            # ignored
+            del object.__key__
 
         """
         try:
@@ -251,7 +297,7 @@ class AttributeDict(dict):
         """
         Return state information for pickling.
         """
-        return self.__dict__.__contains__(key)
+        return self.__dict__.__reduce__()
 
     def __eq__(self, other):
         """
@@ -268,6 +314,7 @@ class AttributeDict(dict):
     @classmethod
     def fromkeys(klass, keys, value = None):
         return AttributeDict(dict.fromkeys((key for key in keys), value))
+
 
 
 # =========================================

@@ -147,7 +147,7 @@ def assertModule(result, expression):
 
     module_file_path = result.__file__
 
-    is_source_file = (module_file_path.find('/{0}'.format(PACKAGE_SOURCE_DIRECTORY)) > -1) # ensure module is loaded from `src`
+    is_source_file = (module_file_path.find('/{0}'.format(PACKAGE_SOURCE_DIRECTORY)) > -1) or (module_file_path.find('/site_packages') > -1) # ensure module is loaded from `src`
 
     if not is_source_file:
         raise AssertionError('module path `{0}` expected to include `{1}` {2}'.format(module_file_path, PACKAGE_SOURCE_DIRECTORY, expression and '- {0}'.format(expression) or ''))
