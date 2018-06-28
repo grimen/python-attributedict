@@ -312,10 +312,27 @@ class AttributeDict(dict):
         """
         return self.__dict__.__ne__(other)
 
+    def to_dict(self):
+        return self.__class__.dict(self.__dict__)
+
     @classmethod
     def fromkeys(klass, keys, value = None):
         return AttributeDict(dict.fromkeys((key for key in keys), value))
 
+    @classmethod
+    def dict(klass, _dict = {}):
+        if _dict is None:
+            return None
+
+        new_dict = {}
+
+        for key, value in _dict.items():
+            if isinstance(value, AttributeDict):
+                new_dict[key] = AttributeDict.to_dict(value)
+            else:
+                new_dict[key] = value
+
+        return new_dict
 
 
 # =========================================
