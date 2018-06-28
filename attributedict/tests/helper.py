@@ -118,9 +118,8 @@ def deepdiff(a, b, exclude_types = None):
     return DeepDiff(a, b, ignore_order = True, report_repetition = True, exclude_types = exclude_types)
 
 def pretty(data):
-    result = json.dumps(data, default = lambda x: repr(x), indent = 4, sort_keys = True)
-    result = result.encode('utf-8', 'ignore')
-    result = highlight(result, lexers.JsonLexer(), formatters.TerminalFormatter())
+    result = pprint.pformat(data, indent = 4, depth = None)
+    result = highlight(result, lexers.PythonLexer(), formatters.TerminalFormatter())
 
     return result
 
