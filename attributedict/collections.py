@@ -17,7 +17,7 @@ import attributedict.compat as compat
 # --------------------------------------
 
 DEFAULT_RESERVED_KEY_PREFIX = '__'
-DEFAULT_RESERVED_KEY_SUFFIX = '__'
+DEFAULT_RESERVED_KEY_SUFFIX = None
 
 
 # =========================================
@@ -43,13 +43,6 @@ class AttributeDict(dict):
         del data.foo
 
     """
-
-    # def __init__(self, entries = {}):
-    #     entries = entries or {}
-
-    #     dict.__init__(self, entries)
-
-    #     self.update(entries)
 
     def __init__(self, entries = {}):
         entries = entries or {}
@@ -79,11 +72,19 @@ class AttributeDict(dict):
         reserved_key_prefix = DEFAULT_RESERVED_KEY_PREFIX
         reserved_key_suffix = DEFAULT_RESERVED_KEY_SUFFIX
 
-        if isinstance(object, dict) and isinstance(reserved_key_prefix, compat.string_types):
+        if isinstance(object, dict):
             for key, value in object.items():
+                is_reserved = False
 
-                if key.startswith(reserved_key_prefix) and key.endswith(reserved_key_suffix):
+                if len(reserved_key_prefix or ''):
+                    is_reserved = key.startswith(reserved_key_prefix)
+
+                if len(reserved_key_suffix or ''):
+                    is_reserved = is_reserved or key.startswith(reserved_key_suffix)
+
+                if is_reserved:
                     del object[key]
+
                 else:
                     object[key] = self._reject_reserved_keys(object[key])
 
