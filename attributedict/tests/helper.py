@@ -13,7 +13,11 @@ import pprint
 import types
 
 from os import path, environ
-from colour_runner.result import ColourTextTestResult
+try:
+    # NOTE on `tox` (2/2): ran into issues with `tox` raising `ncurses` error, so disabling colors when running in `tox` for now
+    from colour_runner.result import ColourTextTestResult
+except:
+    pass
 from pygments import highlight, lexers, formatters
 
 from deepdiff import DeepDiff
@@ -25,9 +29,10 @@ syspath()
 from six import PY2, PY3, string_types
 
 CURRENT_PATH = path.abspath(path.dirname(__file__))
-ROOT_PATH = path.abspath(path.join(CURRENT_PATH, '..', '..'))
+ROOT_PATH = path.abspath(os.getcwd())
+# ROOT_PATH = path.abspath(path.join(CURRENT_PATH, '..', '..')) # NOTE: causes trouble in `tox`
 
-PACKAGE_SOURCE_DIRECTORY = path.basename(ROOT_PATH.strip(os.sep)).replace('python-', '').replace('-', '_') # e.g. `python-foo-bar` => `foo_bar`
+PACKAGE_SOURCE_DIRECTORY = 'attributedict'
 PACKAGE_SOURCE_PATH = path.join(ROOT_PATH, PACKAGE_SOURCE_DIRECTORY)
 
 try:
@@ -66,11 +71,19 @@ print('\n# --------------------------------------')
 def run(test):
     loader = unittest.TestLoader()
 
+    if isinstance(test, string_types):
+        test_path = test
+
+        if path.isfile(test_path):
+            test_path = path.dirname(test_path)
+
+        test = suite(path.abspath(test_path))
+
     if isinstance(test, unittest.TestSuite):
-        suite = test
+        _suite = test
 
     else:
-        suite = unittest.TestSuite()
+        _suite = unittest.TestSuite()
 
         if isinstance(test, list):
             tests = test
@@ -79,11 +92,20 @@ def run(test):
             tests = [test]
 
         for test in tests:
-            suite.addTests(loader.loadTestsFromTestCase(test))
+            _suite.addTests(loader.loadTestsFromTestCase(test))
 
     print('')
 
-    unittest.runner.TextTestRunner(verbosity = 2, resultclass = ColourTextTestResult).run(suite)
+    # NOTE on `tox` (2/2): ran into issues with `tox` raising `ncurses` error, so disabling colors when running in `tox` for now
+    if 'ColourTextTestResult' in globals():
+        result = unittest.runner.TextTestRunner(verbosity = 2, resultclass = ColourTextTestResult).run(_suite)
+    else:
+        result = unittest.runner.TextTestRunner(verbosity = 2).run(_suite)
+
+    succesful = not result.wasSuccessful()
+    exit_code = int(succesful)
+
+    sys.exit(exit_code)
 
 def suite(root = DEFAULT_TEST_ROOT_PATH, pattern = DEFAULT_TEST_FILE_PATTERN):
     root = root or DEFAULT_TEST_ROOT_PATH

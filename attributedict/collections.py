@@ -73,7 +73,7 @@ class AttributeDict(dict):
         reserved_key_suffix = DEFAULT_RESERVED_KEY_SUFFIX
 
         if isinstance(object, dict):
-            for key, value in object.items():
+            for key, value in list(object.items()):
                 is_reserved = False
 
                 if len(reserved_key_prefix or ''):
