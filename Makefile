@@ -44,15 +44,15 @@ testimport:
 .PHONY: build
 build: clean
 	rm -rf ./dist && \
-	python -m pip install --user --upgrade setuptools wheel && \
+	python -m pip install --upgrade setuptools wheel && \
 	python setup.py sdist bdist_wheel
 
 .PHONY: dist
 dist: build
-	python -m pip install --user --upgrade twine && \
+	python -m pip install --upgrade twine && \
 	twine upload dist/*
 
 .PHONY: dist-dev
 dist-dev: build
-	python -m pip install --user --upgrade twine && \
+	python -m pip install --upgrade twine && \
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
