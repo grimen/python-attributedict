@@ -44,7 +44,7 @@ packages = setuptools.find_packages()
 
 config = {
     'name': 'attributedict',
-    'version': '0.1.8',
+    'version': '0.2.0',
     'description': (
         'A dictionary object with attributes support.'
     ),
