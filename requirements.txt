@@ -1,4 +1,4 @@
-easypackage >= 0.1.8
+rootpath >= 0.1.0
 attributedict >= 0.1.6
 deepdiff >= 3.3.0
 tox >= 3.0.0

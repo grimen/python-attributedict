@@ -5,9 +5,9 @@
 
 from os import path
 
-from easypackage.syspath import syspath
+import rootpath
 
-syspath()
+rootpath.append()
 
 from attributedict.tests import helper
 

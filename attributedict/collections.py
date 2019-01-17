@@ -5,9 +5,9 @@
 
 import collections
 
-from easypackage.syspath import syspath
+import rootpath
 
-syspath()
+rootpath.append()
 
 import attributedict.compat as compat
 
@@ -119,14 +119,14 @@ class AttributeDict(dict):
     def items(self, *args, **kwargs):
         return self.__dict__.items(*args, **kwargs)
 
-    def iteritems(self, *args, **kwargs):
-        self.__dict__.items(*args, **kwargs)
-
     def iterkeys(self, *args, **kwargs):
         self.__dict__.iterkeys(*args, **kwargs)
 
     def itervalues(self, *args, **kwargs):
         self.__dict__.itervalues(*args, **kwargs)
+
+    def iteritems(self, *args, **kwargs):
+        self.__dict__.items(*args, **kwargs)
 
     def get(self, key, default = None):
         result = self.__dict__.get(key, default)
@@ -349,22 +349,19 @@ attrdict = AttributeDict
 
 if __name__ == '__main__':
 
-    from easypackage.utils.banner import banner
-
-    with banner(__file__):
-        data = {
-            'a': {
-                'b': {
-                    'c': [1, 2, 3]
-                }
+    data = {
+        'a': {
+            'b': {
+                'c': [1, 2, 3]
             }
         }
+    }
 
-        object = AttributeDict(data)
+    object = AttributeDict(data)
 
-        print('object = AttributeDict({0})\n'.format(data))
+    print('object = AttributeDict({0})\n'.format(data))
 
-        print('object\n\n\t{0}\n'.format(object))
-        print('object.a\n\n\t{0}\n'.format(object.a))
-        print('object.a.b\n\n\t{0}\n'.format(object.a.b))
-        print('object.a.b.c\n\n\t{0}\n'.format(object.a.b.c))
+    print('object\n\n\t{0}\n'.format(object))
+    print('object.a\n\n\t{0}\n'.format(object.a))
+    print('object.a.b\n\n\t{0}\n'.format(object.a.b))
+    print('object.a.b.c\n\n\t{0}\n'.format(object.a.b.c))
