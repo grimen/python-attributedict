@@ -1,13 +1,13 @@
 
 # =========================================
-#       DEPS
+#       IMPORT
 # --------------------------------------
-
-import collections
 
 import rootpath
 
 rootpath.append()
+
+import collections
 
 import attributedict.compat as compat
 
@@ -336,11 +336,18 @@ class AttributeDict(dict):
 
 
 # =========================================
-#       ALIASES
+#       EXPORT
 # --------------------------------------
 
 attributedict = AttributeDict
 attrdict = AttributeDict
+
+__all__ = [
+    'AttributeDict',
+
+    'attributedict',
+    'attrdict',
+]
 
 
 # =========================================

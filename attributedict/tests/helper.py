@@ -3,6 +3,10 @@
 #       DEPS
 # --------------------------------------
 
+import rootpath
+
+rootpath.append()
+
 import sys
 import os
 import inspect
@@ -11,6 +15,7 @@ import json
 import inspect
 import pprint
 import types
+import inspecta
 
 from os import path, environ
 try:
@@ -18,13 +23,8 @@ try:
     from colour_runner.result import ColourTextTestResult
 except:
     pass
-from pygments import highlight, lexers, formatters
 
 from deepdiff import DeepDiff
-
-import rootpath
-
-rootpath.append()
 
 from six import PY2, PY3, string_types
 
@@ -140,10 +140,7 @@ def deepdiff(a, b, exclude_types = None):
     return DeepDiff(a, b, ignore_order = True, report_repetition = True, exclude_types = exclude_types)
 
 def pretty(data):
-    result = pprint.pformat(data, indent = 4, depth = None)
-    result = highlight(result, lexers.PythonLexer(), formatters.TerminalFormatter())
-
-    return result
+    return inspecta.inspect(data, indent = 4, depth = None)
 
 def fixture_path(relative_file_path = None):
     path_parts = filter(lambda value: value is not None, [FIXTURES_PATH, relative_file_path])
