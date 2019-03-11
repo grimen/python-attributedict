@@ -1,4 +1,5 @@
-rootpath >= 0.1.0
+setupextras >= 0.1.0
+rootpath >= 0.1.1
 inspecta >= 0.1.0
 
 colour-runner >= 0.0.5
