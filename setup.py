@@ -15,7 +15,7 @@ import setupextras
 #       MAIN
 # --------------------------------------
 
-name = ''
+name = 'attributedict'
 version = '0.3.0'
 description = 'A dictionary object with attributes support - for Python.'
 keywords = [
