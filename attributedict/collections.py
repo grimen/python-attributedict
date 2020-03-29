@@ -294,12 +294,6 @@ class AttributeDict(dict):
         """
         return self.__dict__.__contains__(key)
 
-    def __reduce__(self):
-        """
-        Return state information for pickling.
-        """
-        return self.__dict__.__reduce__()
-
     def __eq__(self, other):
         """
         Check dictionary is equal to another provided dictionary.
