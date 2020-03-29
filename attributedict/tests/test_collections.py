@@ -14,6 +14,8 @@ from attributedict.tests import helper
 import attributedict
 import attributedict.collections as collections
 
+import pickle
+
 AttributeDict = collections.AttributeDict
 
 class CustomAttributeDict(AttributeDict):
@@ -37,6 +39,12 @@ class TestCase(helper.TestCase):
 
         self.assertTrue(hasattr(attributedict.collections, 'attrdict'))
         self.assertEqual(attributedict.collections.attrdict, attributedict.collections.attrdict)
+
+    def test_pickle(self):
+        attr_dict = AttributeDict({'foo': {'bar': 3}})
+        data = pickle.dumps(attr_dict)
+        restored_attr_dict = pickle.loads(data)
+        self.assertDeepEqual(attr_dict, restored_attr_dict)
 
     def test_init(self):
         for _AttributeDict in [AttributeDict, CustomAttributeDict]:
